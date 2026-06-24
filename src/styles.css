@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --if-primary: #1c3557;
+  --if-primary-dark: #142845;
+}
+
+.bg-if-primary        { background-color: var(--if-primary) !important; }
+.text-if-primary      { color: var(--if-primary) !important; }
+.border-if-primary    { border-color: var(--if-primary) !important; }
+
+.btn-if-primary {
+  background-color: var(--if-primary);
+  border-color: var(--if-primary);
+  color: #fff;
+}
+.btn-if-primary:hover,
+.btn-if-primary:focus {
+  background-color: var(--if-primary-dark);
+  border-color: var(--if-primary-dark);
+  color: #fff;
+}
