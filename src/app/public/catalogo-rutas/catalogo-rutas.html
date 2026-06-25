@@ -1,1 +1,66 @@
-<p>catalogo-rutas works!</p>
+<main class="container py-4">
+  <h1 class="h3 mb-1 text-if-primary">Catálogo de rutas</h1>
+  <p class="text-muted">Origen y destino de nuestras rutas disponibles. Filtra por tipo de carga.</p>
+
+  <!-- Filtros -->
+  <div class="row g-3 align-items-end mb-3">
+    <div class="col-md-4">
+      <label class="form-label" for="rTipo">Tipo de carga</label>
+      <select class="form-select" id="rTipo" [(ngModel)]="filtroTipo">
+        <option value="">Todos</option>
+        <option>Carga general</option>
+        <option>Refrigerada</option>
+        <option>Contenedor</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" for="rBuscar">Buscar ruta</label>
+      <input type="text" class="form-control" id="rBuscar"
+             placeholder="Ej. Lima" [(ngModel)]="filtroBuscar">
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-if-primary w-100" (click)="limpiarFiltros()">
+        <i class="bi bi-x-circle me-1"></i>Limpiar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de rutas -->
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Código</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Distancia</th>
+            <th>Tipo de carga</th>
+            <th>Tiempo estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ruta of rutasFiltradas(); track ruta.codigo) {
+            <tr>
+              <td>{{ ruta.codigo }}</td>
+              <td>{{ ruta.origen }}</td>
+              <td>{{ ruta.destino }}</td>
+              <td>{{ ruta.distancia }}</td>
+              <td>
+                <span class="badge" [ngClass]="ruta.badgeClass">{{ ruta.tipo }}</span>
+              </td>
+              <td>{{ ruta.tiempo }}</td>
+            </tr>
+          }
+          @if (rutasFiltradas().length === 0) {
+            <tr>
+              <td colspan="6" class="text-center text-muted py-3">
+                No se encontraron rutas con ese criterio.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
