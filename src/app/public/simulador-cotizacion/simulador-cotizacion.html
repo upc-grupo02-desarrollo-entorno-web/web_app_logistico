@@ -1,1 +1,106 @@
-<p>simulador-cotizacion works!</p>
+<main class="container py-4">
+  <h1 class="h3 mb-1 text-if-primary">Simulador de cotización</h1>
+  <p class="text-muted">Ingresa los datos de tu carga para obtener una cotización referencial.</p>
+
+  <div class="row g-4">
+
+    <!-- Columna izquierda: Formulario -->
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="h6 mb-3">Datos de la carga</h2>
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label" for="cOrigen">Origen</label>
+              <select class="form-select" id="cOrigen" [(ngModel)]="origen">
+                <option>Lima</option>
+                <option>Callao</option>
+                <option>Arequipa</option>
+                <option>Trujillo</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="cDestino">Destino</label>
+              <select class="form-select" id="cDestino" [(ngModel)]="destino">
+                <option>Lima</option>
+                <option>Arequipa</option>
+                <option>Cusco</option>
+                <option>Piura</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="cPeso">Peso de la carga (kg)</label>
+              <input type="number" class="form-control" id="cPeso"
+                     [(ngModel)]="peso" min="1">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="cTipo">Tipo de carga</label>
+              <select class="form-select" id="cTipo" [(ngModel)]="tipoCarga">
+                <option>Carga general</option>
+                <option>Refrigerada</option>
+                <option>Peligrosa</option>
+                <option>Contenedor</option>
+              </select>
+            </div>
+
+            <div class="col-12 d-grid d-md-block">
+              <!-- (click)="calcular()" llama al método calcular() del componente -->
+              <button type="button" class="btn btn-if-primary px-4" (click)="calcular()">
+                <i class="bi bi-calculator me-1"></i>Calcular cotización
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Resultado -->
+    <div class="col-lg-5">
+      <div class="card shadow-sm border-0 bg-light">
+        <div class="card-body">
+          <h2 class="h6 text-muted">Cotización estimada</h2>
+
+          <!-- Solo se muestra si calculado === true -->
+          @if (calculado) {
+            <p class="display-6 fw-bold text-if-primary mb-1">S/ {{ formatear(total) }}</p>
+            <span class="badge bg-success mb-3">Referencial</span>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between px-0 bg-transparent">
+                <span>Tarifa base ({{ tipoCarga }})</span>
+                <span>S/ {{ formatear(tarifaBase) }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0 bg-transparent">
+                <span>Recargo por peso ({{ peso }} kg)</span>
+                <span>S/ {{ formatear(recargoPeso) }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0 bg-transparent">
+                <span>Gestión</span>
+                <span>S/ {{ formatear(gestion) }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0 bg-transparent fw-bold">
+                <span>Costo total</span>
+                <span>S/ {{ formatear(total) }}</span>
+              </li>
+            </ul>
+          } @else {
+            <p class="text-muted py-3 mb-0">
+              <i class="bi bi-calculator me-1"></i>
+              Completa el formulario y presiona <strong>Calcular cotización</strong>.
+            </p>
+          }
+
+          <div class="alert alert-info small mt-3 mb-0">
+            <i class="bi bi-info-circle me-1"></i>
+            Esta cotización es referencial y no constituye un compromiso de servicio.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
