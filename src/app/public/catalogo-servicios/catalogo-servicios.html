@@ -1,1 +1,57 @@
-<p>catalogo-servicios works!</p>
+<main class="container py-4">
+  <h1 class="h3 mb-1 text-if-primary">Catálogo de servicios</h1>
+  <p class="text-muted">Conoce nuestras soluciones logísticas. No necesitas iniciar sesión.</p>
+
+  <!-- Panel de filtros -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label class="form-label" for="fTipoCarga">Filtrar por tipo de carga</label>
+          <select class="form-select" id="fTipoCarga" [(ngModel)]="filtroTipo">
+            <option value="">Todos</option>
+            <option>Carga general</option>
+            <option>Refrigerada</option>
+            <option>Peligrosa</option>
+            <option>Contenedor</option>
+          </select>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label" for="fBuscar">Buscar servicio</label>
+          <input type="text" class="form-control" id="fBuscar"
+                 placeholder="Ej. terrestre" [(ngModel)]="filtroBuscar">
+        </div>
+        <div class="col-md-2 d-grid">
+          <button type="button" class="btn btn-if-primary" (click)="limpiarFiltros()">
+            <i class="bi bi-x-circle me-1"></i>Limpiar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards de servicios — @for itera sobre serviciosFiltrados() -->
+  <div class="row g-4">
+    @for (servicio of serviciosFiltrados(); track servicio.nombre) {
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="badge mb-2" [ngClass]="servicio.badgeClass">{{ servicio.tipo }}</span>
+            <h2 class="h5">{{ servicio.nombre }}</h2>
+            <p class="text-muted small">{{ servicio.descripcion }}</p>
+          </div>
+          <div class="card-footer bg-white border-0">
+            <span class="text-if-primary fw-semibold">Desde {{ servicio.precio }}</span>
+          </div>
+        </div>
+      </div>
+    }
+    @if (serviciosFiltrados().length === 0) {
+      <div class="col-12">
+        <p class="text-muted text-center py-4">
+          No se encontraron servicios con ese criterio.
+        </p>
+      </div>
+    }
+  </div>
+</main>

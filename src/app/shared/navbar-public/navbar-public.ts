@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-public',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar-public.html',
-  styleUrl: './navbar-public.css',
+  styleUrl: './navbar-public.css'
 })
-export class NavbarPublic {}
+export class NavbarPublicComponent { }

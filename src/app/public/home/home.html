@@ -1,1 +1,63 @@
-<p>home works!</p>
+<!-- Hero: sección de bienvenida con fondo azul -->
+<header class="bg-if-primary text-white py-5">
+  <div class="container py-4">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h1 class="fw-bold mb-3">Sigue tus despachos en un solo lugar</h1>
+        <p class="lead mb-4">
+          Consulta servicios, simula cotizaciones y haz seguimiento de tu carga
+          en tiempo real, sin llamadas ni correos.
+        </p>
+        <a routerLink="/simulador-cotizacion" class="btn btn-light btn-lg me-2">
+          Simular cotización
+        </a>
+        <a routerLink="/catalogo-servicios" class="btn btn-outline-light btn-lg">
+          Ver servicios
+        </a>
+      </div>
+      <div class="col-lg-5 text-center">
+        <i class="bi bi-globe-americas hero-icon"></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Sección de servicios destacados -->
+<section class="container py-5">
+  <h2 class="h4 mb-4 text-if-primary">¿Qué ofrecemos?</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-truck fs-1 text-if-primary"></i>
+          <h3 class="h5 mt-3">Transporte terrestre</h3>
+          <p class="text-muted mb-0">
+            Carga general y contenedores a nivel nacional con seguimiento continuo.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-box-seam fs-1 text-if-primary"></i>
+          <h3 class="h5 mt-3">Gestión de contenedores</h3>
+          <p class="text-muted mb-0">
+            Control de disponibilidad y estado de tus contenedores en todo momento.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-geo-alt fs-1 text-if-primary"></i>
+          <h3 class="h5 mt-3">Trazabilidad</h3>
+          <p class="text-muted mb-0">
+            Conoce la ubicación y el historial de movimientos de cada despacho.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
