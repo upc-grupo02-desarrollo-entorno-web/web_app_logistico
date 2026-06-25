@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="card shadow-sm" style="width: 380px;">
+    <div class="card-body p-4">
+      <div class="text-center mb-4">
+        <i class="bi bi-truck fs-1 text-if-primary"></i>
+        <h1 class="h4 mt-2 fw-bold text-if-primary">IntermodalFlow</h1>
+        <p class="text-muted small">Ingresa tus credenciales para continuar</p>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="usuario">Usuario</label>
+        <input type="text" class="form-control" id="usuario"
+               placeholder="usuario@empresa.com" [(ngModel)]="usuario">
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="clave">Contraseña</label>
+        <input type="password" class="form-control" id="clave"
+               placeholder="••••••••" [(ngModel)]="clave">
+      </div>
+      <div class="d-grid">
+        <a class="btn btn-if-primary" routerLink="/cliente/dashboard">
+          <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
+        </a>
+      </div>
+      <div class="text-center mt-3">
+        <a routerLink="/home" class="text-muted small">← Volver al inicio</a>
+      </div>
+    </div>
+  </div>
+</div>

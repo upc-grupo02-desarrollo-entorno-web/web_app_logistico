@@ -1,1 +1,34 @@
-<p>sidebar-client works!</p>
+<aside class="d-flex flex-column p-3 bg-white border-end" style="min-height: calc(100vh - 56px); width: 220px;">
+  <ul class="nav flex-column gap-1">
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/dashboard" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/despachos" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-truck me-2"></i>Despachos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/seguimiento" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-geo-alt me-2"></i>Seguimiento
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/historial" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-clock-history me-2"></i>Historial
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/incidencias" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-exclamation-triangle me-2"></i>Incidencias
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link rounded" routerLink="/cliente/centro-alertas" routerLinkActive="active bg-if-primary text-white">
+        <i class="bi bi-bell me-2"></i>Centro de alertas
+      </a>
+    </li>
+  </ul>
+</aside>

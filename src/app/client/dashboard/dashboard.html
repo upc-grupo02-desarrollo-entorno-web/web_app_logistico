@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<h1 class="h3 mb-4 text-if-primary">Resumen de operaciones</h1>
+
+<!-- KPI: tarjeta con el conteo de despachos activos -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <p class="text-muted small mb-1">Despachos activos</p>
+        <p class="h3 fw-bold mb-0">{{ despachosActivos.length }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla de despachos activos -->
+<div class="card shadow-sm">
+  <div class="card-header bg-white fw-semibold">Despachos activos</div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Código</th>
+          <th>Ruta</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (d of despachosActivos; track d.codigo) {
+          <tr>
+            <td>{{ d.codigo }}</td>
+            <td>{{ d.ruta }}</td>
+            <td>
+              <span class="badge" [ngClass]="claseBadge(d.estado)">{{ d.estado }}</span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
