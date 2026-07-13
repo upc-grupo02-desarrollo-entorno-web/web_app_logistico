@@ -6,21 +6,37 @@
         <h1 class="h4 mt-2 fw-bold text-if-primary">IntermodalFlow</h1>
         <p class="text-muted small">Ingresa tus credenciales para continuar</p>
       </div>
-      <div class="mb-3">
-        <label class="form-label" for="usuario">Usuario</label>
-        <input type="text" class="form-control" id="usuario"
-               placeholder="usuario@empresa.com" [(ngModel)]="usuario">
+
+      @if (error) {
+        <div class="alert alert-danger py-2 small">
+          <i class="bi bi-exclamation-circle me-1"></i>Usuario o contraseña incorrectos.
+        </div>
+      }
+
+      <form (ngSubmit)="ingresar()">
+        <div class="mb-3">
+          <label class="form-label" for="usuario">Usuario</label>
+          <input type="text" class="form-control" id="usuario" name="usuario"
+                 placeholder="usuario@empresa.com" [(ngModel)]="usuario" required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="clave">Contraseña</label>
+          <input type="password" class="form-control" id="clave" name="clave"
+                 placeholder="••••••••" [(ngModel)]="clave" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-if-primary">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
+          </button>
+        </div>
+      </form>
+
+      <div class="alert alert-info small mt-3 mb-0">
+        <i class="bi bi-info-circle me-1"></i>
+        Demo — cliente: <strong>cliente&#64;intermodalflow.com</strong> / <strong>cliente123</strong><br>
+        Demo — admin: <strong>admin&#64;intermodalflow.com</strong> / <strong>admin123</strong>
       </div>
-      <div class="mb-4">
-        <label class="form-label" for="clave">Contraseña</label>
-        <input type="password" class="form-control" id="clave"
-               placeholder="••••••••" [(ngModel)]="clave">
-      </div>
-      <div class="d-grid">
-        <a class="btn btn-if-primary" routerLink="/cliente/dashboard">
-          <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
-        </a>
-      </div>
+
       <div class="text-center mt-3">
         <a routerLink="/home" class="text-muted small">← Volver al inicio</a>
       </div>
