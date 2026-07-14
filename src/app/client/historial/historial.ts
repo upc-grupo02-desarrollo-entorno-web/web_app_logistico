@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Despacho } from '../../core/models/despacho.model';
+import { DespachosService } from '../../core/services/despachos';
 
 @Component({
   selector: 'app-historial',
@@ -6,4 +8,14 @@ import { Component } from '@angular/core';
   templateUrl: './historial.html',
   styleUrl: './historial.css',
 })
-export class Historial {}
+export class Historial implements OnInit {
+
+  entregados: Despacho[] = [];
+
+  constructor(private despachosService: DespachosService) {}
+
+  ngOnInit(): void {
+    this.entregados = this.despachosService.obtenerEntregados();
+  }
+}
+

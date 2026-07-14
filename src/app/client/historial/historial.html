@@ -1,5 +1,30 @@
 <h1 class="h3 mb-4 text-if-primary">Historial de despachos</h1>
-<div class="alert alert-info">
-  <i class="bi bi-clock-history me-2"></i>
-  Esta sección mostrará el historial de despachos completados y cancelados. En construcción.
+
+<div class="card shadow-sm">
+  <div class="card-header bg-white fw-semibold">Despachos entregados</div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Código</th>
+          <th>Ruta</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (d of entregados; track d.codigo) {
+          <tr>
+            <td>{{ d.codigo }}</td>
+            <td>{{ d.ruta }}</td>
+            <td><span class="badge bg-success">{{ d.estado }}</span></td>
+          </tr>
+        }
+        @if (entregados.length === 0) {
+          <tr>
+            <td colspan="3" class="text-center text-muted py-3">Aún no hay despachos entregados.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
