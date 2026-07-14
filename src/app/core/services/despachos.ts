@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Despacho } from '../models/despacho.models';
+import { Despacho } from '../models/despacho.model';
 
 @Injectable({
   providedIn: 'root'   // ← disponible en toda la app sin importarlo manualmente

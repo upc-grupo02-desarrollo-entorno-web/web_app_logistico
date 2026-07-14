@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Despacho } from '../../core/models/despacho.models';
+import { Despacho } from '../../core/models/despacho.model';
 import { DespachosService } from '../../core/services/despachos';
 
 @Component({
