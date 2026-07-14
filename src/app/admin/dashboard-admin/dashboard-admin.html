@@ -1,1 +1,28 @@
-<p>dashboard-admin works!</p>
+<h1 class="h3 mb-4 text-if-primary">Panel de administración</h1>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <p class="text-muted small mb-1">Total despachos</p>
+        <p class="h3 fw-bold mb-0">{{ totalDespachos }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <p class="text-muted small mb-1">Contenedores en uso</p>
+        <p class="h3 fw-bold mb-0">{{ contenedoresActivos }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <p class="text-muted small mb-1">Incidencias abiertas</p>
+        <p class="h3 fw-bold mb-0">{{ incidenciasAbiertas }}</p>
+      </div>
+    </div>
+  </div>
+</div>
