@@ -1,5 +1,43 @@
 <h1 class="h3 mb-4 text-if-primary">Seguimiento en tiempo real</h1>
-<div class="alert alert-info">
-  <i class="bi bi-geo-alt me-2"></i>
-  Esta sección mostrará el mapa de seguimiento de cada despacho. En construcción.
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <label class="form-label" for="cDespacho">Selecciona un despacho</label>
+    <select class="form-select" id="cDespacho" style="max-width: 320px;" [(ngModel)]="codigoSeleccionado">
+      @for (d of despachos; track d.codigo) {
+        <option [value]="d.codigo">{{ d.codigo }} — {{ d.ruta }}</option>
+      }
+    </select>
+  </div>
 </div>
+
+@if (despachoActual) {
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="h6 mb-4">{{ despachoActual.ruta }}</h2>
+
+      <div class="d-flex justify-content-between position-relative">
+        @for (paso of pasos; track paso; let i = $index) {
+          <div class="text-center flex-fill">
+            <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                 style="width: 36px; height: 36px;"
+                 [class.bg-if-primary]="i <= indiceActual()"
+                 [class.text-white]="i <= indiceActual()"
+                 [class.bg-secondary-subtle]="i > indiceActual()">
+              @if (i < indiceActual()) {
+                <i class="bi bi-check-lg"></i>
+              } @else {
+                {{ i + 1 }}
+              }
+            </div>
+            <p class="small mt-2 mb-0" [class.fw-bold]="i === indiceActual()" [class.text-if-primary]="i === indiceActual()">
+              {{ paso }}
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+} @else {
+  <p class="text-muted">No hay despachos registrados.</p>
+}
