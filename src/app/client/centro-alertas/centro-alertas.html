@@ -1,5 +1,18 @@
 <h1 class="h3 mb-4 text-if-primary">Centro de alertas</h1>
-<div class="alert alert-info">
-  <i class="bi bi-bell me-2"></i>
-  Esta sección mostrará las alertas y notificaciones del sistema. En construcción.
+
+<div class="card shadow-sm">
+  <ul class="list-group list-group-flush">
+    @for (a of alertas; track a.mensaje) {
+      <li class="list-group-item d-flex align-items-start gap-3">
+        <i class="bi {{ icono(a.tipo) }} fs-5"></i>
+        <div>
+          <p class="mb-0">{{ a.mensaje }}</p>
+          <span class="text-muted small">{{ a.fecha }}</span>
+        </div>
+      </li>
+    }
+    @if (alertas.length === 0) {
+      <li class="list-group-item text-center text-muted py-3">No hay alertas por el momento.</li>
+    }
+  </ul>
 </div>
