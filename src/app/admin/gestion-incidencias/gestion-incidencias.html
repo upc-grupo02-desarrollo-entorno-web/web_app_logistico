@@ -1,5 +1,42 @@
 <h1 class="h3 mb-4 text-if-primary">Gestión de incidencias</h1>
-<div class="alert alert-info">
-  <i class="bi bi-exclamation-triangle me-2"></i>
-  Aquí se gestionarán las incidencias reportadas por los clientes. En construcción.
+
+<div class="card shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Código</th>
+          <th>Despacho</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th style="width: 200px;">Actualizar estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (i of incidencias; track i.codigo) {
+          <tr>
+            <td>{{ i.codigo }}</td>
+            <td>{{ i.despachoRelacionado }}</td>
+            <td>{{ i.tipo }}</td>
+            <td class="small text-muted">{{ i.descripcion }}</td>
+            <td><span class="badge" [ngClass]="claseBadge(i.estado)">{{ i.estado }}</span></td>
+            <td>
+              <select class="form-select form-select-sm" title="Actualizar estado de la incidencia"
+                      [ngModel]="i.estado" (ngModelChange)="cambiarEstado(i, $event)">
+                <option>Abierta</option>
+                <option>En proceso</option>
+                <option>Resuelta</option>
+              </select>
+            </td>
+          </tr>
+        }
+        @if (incidencias.length === 0) {
+          <tr>
+            <td colspan="6" class="text-center text-muted py-3">No hay incidencias registradas.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
