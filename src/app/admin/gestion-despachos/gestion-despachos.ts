@@ -28,7 +28,7 @@ export class GestionDespachos implements OnInit {
   }
 
   private recargar(): void {
-    this.despachos = this.despachosService.obtenerTodos();
+    this.despachosService.obtenerTodos().subscribe(despachos => this.despachos = despachos);
   }
 
   guardar(): void {
@@ -36,14 +36,15 @@ export class GestionDespachos implements OnInit {
       return;
     }
 
-    if (this.codigoEnEdicion) {
-      this.despachosService.actualizar(this.codigoEnEdicion, { codigo: this.codigo, ruta: this.ruta, estado: this.estado });
-    } else {
-      this.despachosService.crear({ codigo: this.codigo, ruta: this.ruta, estado: this.estado });
-    }
+    const datos = { codigo: this.codigo, ruta: this.ruta, estado: this.estado };
+    const operacion = this.codigoEnEdicion
+      ? this.despachosService.actualizar(this.codigoEnEdicion, datos)
+      : this.despachosService.crear(datos);
 
-    this.limpiarFormulario();
-    this.recargar();
+    operacion.subscribe(() => {
+      this.limpiarFormulario();
+      this.recargar();
+    });
   }
 
   editar(despacho: Despacho): void {
@@ -54,8 +55,7 @@ export class GestionDespachos implements OnInit {
   }
 
   eliminar(codigo: string): void {
-    this.despachosService.eliminar(codigo);
-    this.recargar();
+    this.despachosService.eliminar(codigo).subscribe(() => this.recargar());
   }
 
   limpiarFormulario(): void {

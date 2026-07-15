@@ -27,7 +27,7 @@ export class GestionContenedores implements OnInit {
   }
 
   private recargar(): void {
-    this.contenedores = this.contenedoresService.obtenerTodos();
+    this.contenedoresService.obtenerTodos().subscribe(contenedores => this.contenedores = contenedores);
   }
 
   guardar(): void {
@@ -35,18 +35,15 @@ export class GestionContenedores implements OnInit {
       return;
     }
 
-    if (this.codigoEnEdicion) {
-      this.contenedoresService.actualizar(this.codigoEnEdicion, {
-        codigo: this.codigo, tipo: this.tipo, estado: this.estado, ubicacion: this.ubicacion
-      });
-    } else {
-      this.contenedoresService.crear({
-        codigo: this.codigo, tipo: this.tipo, estado: this.estado, ubicacion: this.ubicacion
-      });
-    }
+    const datos = { codigo: this.codigo, tipo: this.tipo, estado: this.estado, ubicacion: this.ubicacion };
+    const operacion = this.codigoEnEdicion
+      ? this.contenedoresService.actualizar(this.codigoEnEdicion, datos)
+      : this.contenedoresService.crear(datos);
 
-    this.limpiarFormulario();
-    this.recargar();
+    operacion.subscribe(() => {
+      this.limpiarFormulario();
+      this.recargar();
+    });
   }
 
   editar(contenedor: Contenedor): void {
@@ -58,8 +55,7 @@ export class GestionContenedores implements OnInit {
   }
 
   eliminar(codigo: string): void {
-    this.contenedoresService.eliminar(codigo);
-    this.recargar();
+    this.contenedoresService.eliminar(codigo).subscribe(() => this.recargar());
   }
 
   limpiarFormulario(): void {

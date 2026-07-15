@@ -18,7 +18,7 @@ export class Despachos implements OnInit {
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
-    this.todos = this.despachosService.obtenerTodos();
+    this.despachosService.obtenerTodos().subscribe(despachos => this.todos = despachos);
   }
 
   despachosFiltrados(): Despacho[] {

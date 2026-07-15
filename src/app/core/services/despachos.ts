@@ -1,47 +1,35 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Despacho } from '../models/despacho.model';
 
 @Injectable({
-  providedIn: 'root'   // ← disponible en toda la app sin importarlo manualmente
+  providedIn: 'root'
 })
 export class DespachosService {
 
-  private despachos: Despacho[] = [
-    { codigo: 'DSP-1001', ruta: 'Lima → Arequipa',   estado: 'En tránsito' },
-    { codigo: 'DSP-1002', ruta: 'Callao → Trujillo', estado: 'En almacén'  },
-    { codigo: 'DSP-1003', ruta: 'Lima → Cusco',       estado: 'Cargando'    },
-    { codigo: 'DSP-1004', ruta: 'Piura → Lima',       estado: 'Entregado'   },
-    { codigo: 'DSP-1005', ruta: 'Lima → Trujillo',    estado: 'Entregado'   }
-  ];
+  private readonly url = `${environment.apiUrl}/despachos`;
 
-  obtenerTodos(): Despacho[] {
-    return this.despachos;
+  constructor(private http: HttpClient) {}
+
+  obtenerTodos(): Observable<Despacho[]> {
+    return this.http.get<Despacho[]>(this.url);
   }
 
-  obtenerActivos(): Despacho[] {
-    return this.despachos.filter(d => d.estado !== 'Entregado');
+  obtenerActivos(): Observable<Despacho[]> {
+    return this.http.get<Despacho[]>(`${this.url}/activos`);
   }
 
-  obtenerEntregados(): Despacho[] {
-    return this.despachos.filter(d => d.estado === 'Entregado');
+  crear(despacho: Despacho): Observable<Despacho> {
+    return this.http.post<Despacho>(this.url, despacho);
   }
 
-  obtenerPorCodigo(codigo: string): Despacho | undefined {
-    return this.despachos.find(d => d.codigo === codigo);
+  actualizar(codigo: string, cambios: Partial<Despacho>): Observable<Despacho> {
+    return this.http.put<Despacho>(`${this.url}/${codigo}`, cambios);
   }
 
-  crear(despacho: Despacho): void {
-    this.despachos.push(despacho);
-  }
-
-  actualizar(codigo: string, cambios: Partial<Despacho>): void {
-    const despacho = this.obtenerPorCodigo(codigo);
-    if (despacho) {
-      Object.assign(despacho, cambios);
-    }
-  }
-
-  eliminar(codigo: string): void {
-    this.despachos = this.despachos.filter(d => d.codigo !== codigo);
+  eliminar(codigo: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${codigo}`);
   }
 }

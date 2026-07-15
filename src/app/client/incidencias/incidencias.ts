@@ -28,11 +28,17 @@ export class Incidencias implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.despachos = this.despachosService.obtenerTodos();
-    this.incidencias = this.incidenciasService.obtenerTodas();
-    if (this.despachos.length > 0) {
-      this.despachoRelacionado = this.despachos[0].codigo;
-    }
+    this.despachosService.obtenerTodos().subscribe(despachos => {
+      this.despachos = despachos;
+      if (despachos.length > 0) {
+        this.despachoRelacionado = despachos[0].codigo;
+      }
+    });
+    this.cargarIncidencias();
+  }
+
+  private cargarIncidencias(): void {
+    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias = incidencias);
   }
 
   registrar(): void {
@@ -43,9 +49,12 @@ export class Incidencias implements OnInit {
       despachoRelacionado: this.despachoRelacionado,
       tipo: this.tipo,
       descripcion: this.descripcion.trim()
+    }).subscribe(() => {
+      this.descripcion = '';
+      this.cargarIncidencias();
     });
-    this.descripcion = '';
   }
+
 
   claseBadge(estado: string): string {
     switch (estado) {

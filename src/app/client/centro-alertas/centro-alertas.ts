@@ -15,7 +15,7 @@ export class CentroAlertas implements OnInit {
   constructor(private alertasService: AlertasService) {}
 
   ngOnInit(): void {
-    this.alertas = this.alertasService.obtenerTodas();
+    this.alertasService.obtenerTodas().subscribe(alertas => this.alertas = alertas);
   }
 
   icono(tipo: string): string {

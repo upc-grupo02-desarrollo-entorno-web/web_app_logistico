@@ -18,8 +18,9 @@ export class Dashboard implements OnInit {
   constructor(private despachosService: DespachosService) {}
 
   // ngOnInit se ejecuta cuando el componente termina de inicializarse
+
   ngOnInit(): void {
-    this.despachosActivos = this.despachosService.obtenerActivos();
+    this.despachosService.obtenerActivos().subscribe(despachos => this.despachosActivos = despachos);
   }
 
   // Devuelve la clase CSS del badge según el estado del despacho

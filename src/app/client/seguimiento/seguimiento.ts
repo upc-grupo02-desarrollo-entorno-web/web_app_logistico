@@ -22,10 +22,12 @@ export class Seguimiento implements OnInit {
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
-    this.despachos = this.despachosService.obtenerTodos();
-    if (this.despachos.length > 0) {
-      this.codigoSeleccionado = this.despachos[0].codigo;
-    }
+    this.despachosService.obtenerTodos().subscribe(despachos => {
+      this.despachos = despachos;
+      if (despachos.length > 0) {
+        this.codigoSeleccionado = despachos[0].codigo;
+      }
+    });
   }
 
   get despachoActual(): Despacho | undefined {

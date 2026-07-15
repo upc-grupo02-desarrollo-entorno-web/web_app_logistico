@@ -17,11 +17,15 @@ export class GestionIncidencias implements OnInit {
   constructor(private incidenciasService: IncidenciasService) {}
 
   ngOnInit(): void {
-    this.incidencias = this.incidenciasService.obtenerTodas();
+    this.cargar();
+  }
+
+  private cargar(): void {
+    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias = incidencias);
   }
 
   cambiarEstado(incidencia: Incidencia, nuevoEstado: Incidencia['estado']): void {
-    this.incidenciasService.actualizar(incidencia.codigo, { estado: nuevoEstado });
+    this.incidenciasService.actualizar(incidencia.codigo, { estado: nuevoEstado }).subscribe(() => this.cargar());
   }
 
   claseBadge(estado: string): string {

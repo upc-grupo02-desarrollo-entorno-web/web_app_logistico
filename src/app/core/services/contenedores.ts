@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Contenedor } from '../models/contenedor.model';
 
 @Injectable({
@@ -6,32 +9,23 @@ import { Contenedor } from '../models/contenedor.model';
 })
 export class ContenedoresService {
 
-  private contenedores: Contenedor[] = [
-    { codigo: 'CNT-2001', tipo: 'Seco',        estado: 'En uso',        ubicacion: 'Callao' },
-    { codigo: 'CNT-2002', tipo: 'Refrigerado', estado: 'Disponible',    ubicacion: 'Lima'   },
-    { codigo: 'CNT-2003', tipo: 'Cisterna',    estado: 'Mantenimiento', ubicacion: 'Trujillo' }
-  ];
+  private readonly url = `${environment.apiUrl}/contenedores`;
 
-  obtenerTodos(): Contenedor[] {
-    return this.contenedores;
+  constructor(private http: HttpClient) {}
+
+  obtenerTodos(): Observable<Contenedor[]> {
+    return this.http.get<Contenedor[]>(this.url);
   }
 
-  obtenerPorCodigo(codigo: string): Contenedor | undefined {
-    return this.contenedores.find(c => c.codigo === codigo);
+  crear(contenedor: Contenedor): Observable<Contenedor> {
+    return this.http.post<Contenedor>(this.url, contenedor);
   }
 
-  crear(contenedor: Contenedor): void {
-    this.contenedores.push(contenedor);
+  actualizar(codigo: string, cambios: Partial<Contenedor>): Observable<Contenedor> {
+    return this.http.put<Contenedor>(`${this.url}/${codigo}`, cambios);
   }
 
-  actualizar(codigo: string, cambios: Partial<Contenedor>): void {
-    const contenedor = this.obtenerPorCodigo(codigo);
-    if (contenedor) {
-      Object.assign(contenedor, cambios);
-    }
-  }
-
-  eliminar(codigo: string): void {
-    this.contenedores = this.contenedores.filter(c => c.codigo !== codigo);
+  eliminar(codigo: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${codigo}`);
   }
 }

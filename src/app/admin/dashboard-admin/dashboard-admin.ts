@@ -22,10 +22,14 @@ export class DashboardAdmin implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.totalDespachos = this.despachosService.obtenerTodos().length;
-    this.contenedoresActivos = this.contenedoresService.obtenerTodos()
-      .filter(c => c.estado === 'En uso').length;
-    this.incidenciasAbiertas = this.incidenciasService.obtenerTodas()
-      .filter(i => i.estado === 'Abierta').length;
+    this.despachosService.obtenerTodos().subscribe(despachos => this.totalDespachos = despachos.length);
+
+    this.contenedoresService.obtenerTodos().subscribe(contenedores => {
+      this.contenedoresActivos = contenedores.filter(c => c.estado === 'En uso').length;
+    });
+
+    this.incidenciasService.obtenerTodas().subscribe(incidencias => {
+      this.incidenciasAbiertas = incidencias.filter(i => i.estado === 'Abierta').length;
+    });
   }
 }

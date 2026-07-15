@@ -1,43 +1,51 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Usuario } from '../models/usuario.model';
 
-// Usuarios de ejemplo — en la Parte 9 esto se reemplaza por una llamada real al backend
-interface UsuarioConClave extends Usuario {
-  clave: string;
+interface RespuestaLogin {
+  token: string;
+  usuario: Usuario;
 }
 
-const CLAVE_STORAGE = 'if_usuario';
+const CLAVE_TOKEN = 'if_token';
+const CLAVE_USUARIO = 'if_usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
 
-  private readonly usuarios: UsuarioConClave[] = [
-    { usuario: 'cliente@intermodalflow.com', clave: 'cliente123', nombre: 'Empresa Cliente SAC', rol: 'cliente' },
-    { usuario: 'admin@intermodalflow.com',   clave: 'admin123',   nombre: 'Administrador',        rol: 'admin'   }
-  ];
-
+  private readonly url = `${environment.apiUrl}/auth`;
   private usuarioActual: Usuario | null = this.leerUsuarioGuardado();
 
-  login(usuario: string, clave: string): Usuario | null {
-    const encontrado = this.usuarios.find(u => u.usuario === usuario && u.clave === clave);
-    if (!encontrado) {
-      return null;
-    }
-    const { clave: _clave, ...usuarioSinClave } = encontrado;
-    this.usuarioActual = usuarioSinClave;
-    localStorage.setItem(CLAVE_STORAGE, JSON.stringify(usuarioSinClave));
-    return usuarioSinClave;
+  constructor(private http: HttpClient) {}
+
+  // Devuelve un Observable porque el login ahora es una petición HTTP asíncrona
+  // al backend (antes era una simple búsqueda en un array en memoria).
+  login(usuario: string, clave: string): Observable<RespuestaLogin> {
+    return this.http.post<RespuestaLogin>(`${this.url}/login`, { usuario, clave }).pipe(
+      tap(respuesta => {
+        this.usuarioActual = respuesta.usuario;
+        localStorage.setItem(CLAVE_TOKEN, respuesta.token);
+        localStorage.setItem(CLAVE_USUARIO, JSON.stringify(respuesta.usuario));
+      })
+    );
   }
 
   logout(): void {
     this.usuarioActual = null;
-    localStorage.removeItem(CLAVE_STORAGE);
+    localStorage.removeItem(CLAVE_TOKEN);
+    localStorage.removeItem(CLAVE_USUARIO);
   }
 
   estaAutenticado(): boolean {
-    return this.usuarioActual !== null;
+    return localStorage.getItem(CLAVE_TOKEN) !== null;
+  }
+
+  obtenerToken(): string | null {
+    return localStorage.getItem(CLAVE_TOKEN);
   }
 
   obtenerUsuarioActual(): Usuario | null {
@@ -45,7 +53,7 @@ export class Auth {
   }
 
   private leerUsuarioGuardado(): Usuario | null {
-    const guardado = localStorage.getItem(CLAVE_STORAGE);
+    const guardado = localStorage.getItem(CLAVE_USUARIO);
     return guardado ? JSON.parse(guardado) : null;
   }
 }

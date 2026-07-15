@@ -16,17 +16,17 @@ export class Login {
   error = false;
 
   constructor(private auth: Auth, private router: Router) {}
-
   ingresar(): void {
-    const usuarioAutenticado = this.auth.login(this.usuario, this.clave);
-
-    if (!usuarioAutenticado) {
-      this.error = true;
-      return;
-    }
-
-    this.error = false;
-    const destino = usuarioAutenticado.rol === 'admin' ? '/admin/dashboard' : '/cliente/dashboard';
-    this.router.navigate([destino]);
+    this.auth.login(this.usuario, this.clave).subscribe({
+      next: (respuesta) => {
+        this.error = false;
+        const destino = respuesta.usuario.rol === 'admin' ? '/admin/dashboard' : '/cliente/dashboard';
+        this.router.navigate([destino]);
+      },
+      error: () => {
+        this.error = true;
+      }
+    });
   }
+
 }

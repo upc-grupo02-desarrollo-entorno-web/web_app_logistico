@@ -15,7 +15,9 @@ export class Historial implements OnInit {
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
-    this.entregados = this.despachosService.obtenerEntregados();
+    this.despachosService.obtenerTodos().subscribe(despachos => {
+      this.entregados = despachos.filter(d => d.estado === 'Entregado');
+    });
   }
 }
 
