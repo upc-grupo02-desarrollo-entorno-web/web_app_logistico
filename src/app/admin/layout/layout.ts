@@ -4,9 +4,9 @@ import { NavbarApp } from '../../shared/navbar-app/navbar-app';
 import { SidebarAdmin } from '../../shared/sidebar-admin/sidebar-admin';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-admin-layout',
   imports: [RouterOutlet, NavbarApp, SidebarAdmin],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
-export class Layout {}
+export class AdminLayout {}

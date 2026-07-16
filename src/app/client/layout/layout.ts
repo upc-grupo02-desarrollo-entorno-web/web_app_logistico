@@ -4,9 +4,9 @@ import { NavbarApp } from '../../shared/navbar-app/navbar-app';
 import { SidebarClient } from '../../shared/sidebar-client/sidebar-client';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-client-layout',
   imports: [RouterOutlet, NavbarApp, SidebarClient],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
-export class Layout {}
+export class ClientLayout {}

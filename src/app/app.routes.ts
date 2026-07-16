@@ -9,7 +9,7 @@ import { CatalogoRutas } from './public/catalogo-rutas/catalogo-rutas';
 import { SimuladorCotizacion } from './public/simulador-cotizacion/simulador-cotizacion';
 import { Login } from './client/login/login';
 
-import { Layout as ClientLayout } from './client/layout/layout';
+import { ClientLayout } from './client/layout/layout';
 import { Dashboard } from './client/dashboard/dashboard';
 import { Despachos } from './client/despachos/despachos';
 import { Seguimiento } from './client/seguimiento/seguimiento';
@@ -17,7 +17,7 @@ import { Historial } from './client/historial/historial';
 import { Incidencias } from './client/incidencias/incidencias';
 import { CentroAlertas } from './client/centro-alertas/centro-alertas';
 
-import { Layout as AdminLayout } from './admin/layout/layout';
+import { AdminLayout } from './admin/layout/layout';
 import { DashboardAdmin } from './admin/dashboard-admin/dashboard-admin';
 import { GestionDespachos } from './admin/gestion-despachos/gestion-despachos';
 import { GestionContenedores } from './admin/gestion-contenedores/gestion-contenedores';

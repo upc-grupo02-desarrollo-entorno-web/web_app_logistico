@@ -4,7 +4,7 @@
   <div class="card-body">
     <label class="form-label" for="cDespacho">Selecciona un despacho</label>
     <select class="form-select" id="cDespacho" style="max-width: 320px;" [(ngModel)]="codigoSeleccionado">
-      @for (d of despachos; track d.codigo) {
+      @for (d of despachos(); track d.codigo) {
         <option [value]="d.codigo">{{ d.codigo }} — {{ d.ruta }}</option>
       }
     </select>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Despacho } from '../../core/models/despacho.model';
 import { DespachosService } from '../../core/services/despachos';
 
@@ -10,13 +10,13 @@ import { DespachosService } from '../../core/services/despachos';
 })
 export class Historial implements OnInit {
 
-  entregados: Despacho[] = [];
+  entregados = signal<Despacho[]>([]);
 
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
     this.despachosService.obtenerTodos().subscribe(despachos => {
-      this.entregados = despachos.filter(d => d.estado === 'Entregado');
+      this.entregados.set(despachos.filter(d => d.estado === 'Entregado'));
     });
   }
 }

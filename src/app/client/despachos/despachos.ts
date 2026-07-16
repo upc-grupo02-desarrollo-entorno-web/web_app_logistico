@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Despacho } from '../../core/models/despacho.model';
@@ -12,17 +12,17 @@ import { DespachosService } from '../../core/services/despachos';
 })
 export class Despachos implements OnInit {
 
-  todos: Despacho[] = [];
+  todos = signal<Despacho[]>([]);
   filtroEstado = '';
 
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
-    this.despachosService.obtenerTodos().subscribe(despachos => this.todos = despachos);
+    this.despachosService.obtenerTodos().subscribe(despachos => this.todos.set(despachos));
   }
 
   despachosFiltrados(): Despacho[] {
-    return this.todos.filter(d => !this.filtroEstado || d.estado === this.filtroEstado);
+    return this.todos().filter(d => !this.filtroEstado || d.estado === this.filtroEstado);
   }
 
   claseBadge(estado: string): string {

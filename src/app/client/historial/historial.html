@@ -12,14 +12,14 @@
         </tr>
       </thead>
       <tbody>
-        @for (d of entregados; track d.codigo) {
+        @for (d of entregados(); track d.codigo) {
           <tr>
             <td>{{ d.codigo }}</td>
             <td>{{ d.ruta }}</td>
             <td><span class="badge bg-success">{{ d.estado }}</span></td>
           </tr>
         }
-        @if (entregados.length === 0) {
+        @if (entregados().length === 0) {
           <tr>
             <td colspan="3" class="text-center text-muted py-3">Aún no hay despachos entregados.</td>
           </tr>

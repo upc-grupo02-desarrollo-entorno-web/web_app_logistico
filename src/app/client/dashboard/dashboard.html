@@ -6,7 +6,7 @@
     <div class="card shadow-sm h-100">
       <div class="card-body">
         <p class="text-muted small mb-1">Despachos activos</p>
-        <p class="h3 fw-bold mb-0">{{ despachosActivos.length }}</p>
+        <p class="h3 fw-bold mb-0">{{ despachosActivos().length }}</p>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (d of despachosActivos; track d.codigo) {
+        @for (d of despachosActivos(); track d.codigo) {
           <tr>
             <td>{{ d.codigo }}</td>
             <td>{{ d.ruta }}</td>

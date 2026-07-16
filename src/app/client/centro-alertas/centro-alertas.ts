@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Alerta } from '../../core/models/alerta.model';
 import { AlertasService } from '../../core/services/alertas';
 
@@ -10,12 +10,12 @@ import { AlertasService } from '../../core/services/alertas';
 })
 export class CentroAlertas implements OnInit {
 
-  alertas: Alerta[] = [];
+  alertas = signal<Alerta[]>([]);
 
   constructor(private alertasService: AlertasService) {}
 
   ngOnInit(): void {
-    this.alertasService.obtenerTodas().subscribe(alertas => this.alertas = alertas);
+    this.alertasService.obtenerTodas().subscribe(alertas => this.alertas.set(alertas));
   }
 
   icono(tipo: string): string {

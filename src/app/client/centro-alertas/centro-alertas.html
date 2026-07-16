@@ -2,7 +2,7 @@
 
 <div class="card shadow-sm">
   <ul class="list-group list-group-flush">
-    @for (a of alertas; track a.mensaje) {
+    @for (a of alertas(); track a.mensaje) {
       <li class="list-group-item d-flex align-items-start gap-3">
         <i class="bi {{ icono(a.tipo) }} fs-5"></i>
         <div>
@@ -11,7 +11,7 @@
         </div>
       </li>
     }
-    @if (alertas.length === 0) {
+    @if (alertas().length === 0) {
       <li class="list-group-item text-center text-muted py-3">No hay alertas por el momento.</li>
     }
   </ul>

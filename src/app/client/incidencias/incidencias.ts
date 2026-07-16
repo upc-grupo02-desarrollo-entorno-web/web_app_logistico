@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Incidencia } from '../../core/models/incidencia.model';
@@ -14,8 +14,8 @@ import { DespachosService } from '../../core/services/despachos';
 })
 export class Incidencias implements OnInit {
 
-  incidencias: Incidencia[] = [];
-  despachos: Despacho[] = [];
+  incidencias = signal<Incidencia[]>([]);
+  despachos = signal<Despacho[]>([]);
 
   // Campos del formulario de nueva incidencia
   despachoRelacionado = '';
@@ -29,7 +29,7 @@ export class Incidencias implements OnInit {
 
   ngOnInit(): void {
     this.despachosService.obtenerTodos().subscribe(despachos => {
-      this.despachos = despachos;
+      this.despachos.set(despachos);
       if (despachos.length > 0) {
         this.despachoRelacionado = despachos[0].codigo;
       }
@@ -38,7 +38,7 @@ export class Incidencias implements OnInit {
   }
 
   private cargarIncidencias(): void {
-    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias = incidencias);
+    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias.set(incidencias));
   }
 
   registrar(): void {

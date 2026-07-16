@@ -59,7 +59,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (c of contenedores; track c.codigo) {
+        @for (c of contenedores(); track c.codigo) {
           <tr>
             <td>{{ c.codigo }}</td>
             <td>{{ c.tipo }}</td>

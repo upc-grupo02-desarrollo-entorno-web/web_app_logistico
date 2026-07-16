@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Despacho } from '../../core/models/despacho.model';
 import { DespachosService } from '../../core/services/despachos';
@@ -12,7 +12,7 @@ import { DespachosService } from '../../core/services/despachos';
 })
 export class Dashboard implements OnInit {
 
-  despachosActivos: Despacho[] = [];
+  despachosActivos = signal<Despacho[]>([]);
 
   // Inyección de dependencias: Angular provee el servicio automáticamente
   constructor(private despachosService: DespachosService) {}
@@ -20,7 +20,7 @@ export class Dashboard implements OnInit {
   // ngOnInit se ejecuta cuando el componente termina de inicializarse
 
   ngOnInit(): void {
-    this.despachosService.obtenerActivos().subscribe(despachos => this.despachosActivos = despachos);
+    this.despachosService.obtenerActivos().subscribe(despachos => this.despachosActivos.set(despachos));
   }
 
   // Devuelve la clase CSS del badge según el estado del despacho

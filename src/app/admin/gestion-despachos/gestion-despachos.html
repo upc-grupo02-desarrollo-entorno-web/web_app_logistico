@@ -51,7 +51,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (d of despachos; track d.codigo) {
+        @for (d of despachos(); track d.codigo) {
           <tr>
             <td>{{ d.codigo }}</td>
             <td>{{ d.ruta }}</td>

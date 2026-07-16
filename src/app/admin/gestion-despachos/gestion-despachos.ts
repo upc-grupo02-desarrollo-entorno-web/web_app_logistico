@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Despacho } from '../../core/models/despacho.model';
@@ -13,7 +13,7 @@ import { DespachosService } from '../../core/services/despachos';
 })
 export class GestionDespachos implements OnInit {
 
-  despachos: Despacho[] = [];
+  despachos = signal<Despacho[]>([]);
 
   // Campos del formulario de alta/edición — codigoEnEdicion === null significa "modo creación"
   codigoEnEdicion: string | null = null;
@@ -28,7 +28,7 @@ export class GestionDespachos implements OnInit {
   }
 
   private recargar(): void {
-    this.despachosService.obtenerTodos().subscribe(despachos => this.despachos = despachos);
+    this.despachosService.obtenerTodos().subscribe(despachos => this.despachos.set(despachos));
   }
 
   guardar(): void {

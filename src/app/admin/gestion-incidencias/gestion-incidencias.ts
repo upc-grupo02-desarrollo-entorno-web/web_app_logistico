@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Incidencia } from '../../core/models/incidencia.model';
@@ -12,7 +12,7 @@ import { Incidencias as IncidenciasService } from '../../core/services/incidenci
 })
 export class GestionIncidencias implements OnInit {
 
-  incidencias: Incidencia[] = [];
+  incidencias = signal<Incidencia[]>([]);
 
   constructor(private incidenciasService: IncidenciasService) {}
 
@@ -21,7 +21,7 @@ export class GestionIncidencias implements OnInit {
   }
 
   private cargar(): void {
-    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias = incidencias);
+    this.incidenciasService.obtenerTodas().subscribe(incidencias => this.incidencias.set(incidencias));
   }
 
   cambiarEstado(incidencia: Incidencia, nuevoEstado: Incidencia['estado']): void {

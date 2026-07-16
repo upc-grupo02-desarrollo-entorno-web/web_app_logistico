@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Despacho } from '../../core/models/despacho.model';
 import { DespachosService } from '../../core/services/despachos';
@@ -16,14 +16,14 @@ export class Seguimiento implements OnInit {
 
   readonly pasos = ORDEN_ESTADOS;
 
-  despachos: Despacho[] = [];
+  despachos = signal<Despacho[]>([]);
   codigoSeleccionado = '';
 
   constructor(private despachosService: DespachosService) {}
 
   ngOnInit(): void {
     this.despachosService.obtenerTodos().subscribe(despachos => {
-      this.despachos = despachos;
+      this.despachos.set(despachos);
       if (despachos.length > 0) {
         this.codigoSeleccionado = despachos[0].codigo;
       }
@@ -31,7 +31,7 @@ export class Seguimiento implements OnInit {
   }
 
   get despachoActual(): Despacho | undefined {
-    return this.despachos.find(d => d.codigo === this.codigoSeleccionado);
+    return this.despachos().find(d => d.codigo === this.codigoSeleccionado);
   }
 
   // Índice del estado actual dentro del ciclo de vida (para pintar los pasos ya completados)

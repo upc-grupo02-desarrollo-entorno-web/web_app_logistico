@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Contenedor } from '../../core/models/contenedor.model';
@@ -12,7 +12,7 @@ import { ContenedoresService } from '../../core/services/contenedores';
 })
 export class GestionContenedores implements OnInit {
 
-  contenedores: Contenedor[] = [];
+  contenedores = signal<Contenedor[]>([]);
 
   codigoEnEdicion: string | null = null;
   codigo = '';
@@ -27,7 +27,7 @@ export class GestionContenedores implements OnInit {
   }
 
   private recargar(): void {
-    this.contenedoresService.obtenerTodos().subscribe(contenedores => this.contenedores = contenedores);
+    this.contenedoresService.obtenerTodos().subscribe(contenedores => this.contenedores.set(contenedores));
   }
 
   guardar(): void {
